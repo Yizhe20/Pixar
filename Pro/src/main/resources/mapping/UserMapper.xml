@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yiliu.sth.dao.UserMapper">
+    <resultMap id="AccountMap" type="com.yiliu.sth.entity.UserAccountInfo">
+        <result column="VC_UUID" property="uuid" jdbcType="VARCHAR"/>
+        <result column="VC_ACCOUNT" property="account" jdbcType="VARCHAR"/>
+        <result column="VC_PASSWD" property="passwd" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="getAccountList"  resultMap="AccountMap">
+        SELECT VC_UUID,VC_ACCOUNT, VC_PASSWD
+        FROM USER_ACCOUNT_INFO
+    </select>
+
+    <update id="alterPasswd" parameterType="String">
+        UPDATE USER_ACCOUNT_INFO SET VC_PASSWD = #{new}
+        WHERE VC_ACCOUNT = #{id}
+          AND VC_PASSWD = #{old}
+    </update>
+
+</mapper>
